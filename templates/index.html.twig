@@ -12,6 +12,66 @@
 {# BODY HOME PAGE #}
 {% block body %}
 
-<h1>Teams by Ranking</h1>
+<div class="container">
+    <h1 class="mb-5">Teams by Ranking</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FIFA RANKING</th>
+                <th>Team Name</th>
+                <th>Chapeau</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for team in teamsByRank %}
+                <tr>
+                    <td>{{ team.rankFifa }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.chapeau }}</td>
+                </tr>
+                {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-3 d-flex flex-column">
+            <h2>POT1</h2>
+            {% for team in teamsPOT1 %}
+                <p>{{ team.name }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-3 d-flex flex-column" >
+            <h2>POT2</h2>
+            {% for team in teamsPOT2 %}
+                <p>{{ team.name }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-3 d-flex flex-column">
+            <h2>POT3</h2>
+            {% for team in teamsPOT3 %}
+                <p>{{ team.name }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-3 d-flex flex-column">
+            <h2>POT4</h2>
+            {% for team in teamsPOT4 %}
+                <p>{{ team.name }}</p>
+            {% endfor %}
+            <p>Barriere 1</p>
+            <p>Barriere 2</p>
+            <p>Barriere 3</p>
+        </div>
+    </div>  
+</div>
+
+   
+
 
 {% endblock %}
