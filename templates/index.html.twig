@@ -81,7 +81,33 @@
     </div>
 </div>
 
-   
 
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ path('generate_matches') }}" class="btn btn-primary">Générer les Matchs Groupe</a>
+<a href="{{ path('reset_matches') }}" class="btn btn-danger">Réinitialiser les Matchs de Groupe</a>
+        </div>
+    </div>
+    <div class="row">
+        {% for chapeau, groupMatches in matchesByGroup %}
+            <div class="col-3">
+                <h3>Matches pour {{ chapeau }}</h3>
+                <ul>
+                    {% for match in groupMatches %}
+                        <li>
+                            {{ match.getTeam1().getName() }} vs {{ match.getTeam2().getName() }}
+                            - <strong> Score: {{ match.getScore() }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
+
+
