@@ -24,6 +24,8 @@ public function index(TeamsRepository $teamsRepository): Response
     $teamsPOT3 = $teamsRepository->findBy(['Chapeau' => 'POT3']);
     $teamsPOT4 = $teamsRepository->findBy(['Chapeau' => 'POT4']);
 
+    $teamsBarrer = $teamsRepository->findBy(['Chapeau' => null]);
+
 
 
 
@@ -35,6 +37,7 @@ public function index(TeamsRepository $teamsRepository): Response
         'teamsPOT2' => $teamsPOT2,
         'teamsPOT3' => $teamsPOT3,
         'teamsPOT4' => $teamsPOT4,
+        'teamsBarrer' => $teamsBarrer,
 
     ]);
 }
