@@ -89,6 +89,14 @@
                 {% endfor %}
             </ul>
         </div>
+    </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ path('random_select') }}" class="btn btn-primary">Select 3 Teams for POT4</a>
+                <a href="{{ path('reset_selection') }}" class="btn btn-danger">Reset Selection</a>
+            </div>
+        </div>
+        <div class="row">
         <div class="col-12">
             <h2>Qualified Team joining POT4</h2>
             <ul>
@@ -100,12 +108,8 @@
             </ul>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <a href="{{ path('random_select') }}" class="btn btn-primary">Select 3 Teams for POT4</a>
-            <a href="{{ path('reset_selection') }}" class="btn btn-danger">Reset Selection</a>
-        </div>
-    </div>
+    
+    
 </div>
 
 
@@ -128,10 +132,186 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <a href="{{ path('generate_group_matches') }}" class="btn btn-primary">Générer les Matchs Groupe</a>
-<a href="{{ path('reset_group_matches') }}" class="btn btn-danger">Réinitialiser les Matchs de Groupe</a>
+            <a href="{{ path('generate_group_matches') }}" class="btn btn-primary">Group Match Generation</a>
+<a href="{{ path('reset_group_matches') }}" class="btn btn-danger">Reset Group Match</a>
         </div>
     </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+
+      
+    <h2>Group POT1 Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in classementTeamGroupPOT1 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team.getName() }}</td>
+                    <td>{{ team.getWins() }}</td>
+                    <td>{{ team.getLosses() }}</td>
+                    <td>{{ team.getDraws() }}</td>
+                    <td>{{ team.getGoalsScored() }}</td>
+                    <td>{{ team.getGoalsConceded() }}</td>
+                    <td>{{ team.getPoints() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-6">
+
+      
+    <h2>Group POT2 Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in classementTeamGroupPOT2 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team.getName() }}</td>
+                    <td>{{ team.getWins() }}</td>
+                    <td>{{ team.getLosses() }}</td>
+                    <td>{{ team.getDraws() }}</td>
+                    <td>{{ team.getGoalsScored() }}</td>
+                    <td>{{ team.getGoalsConceded() }}</td>
+                    <td>{{ team.getPoints() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-6">
+
+      
+    <h2>Group POT3 Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in classementTeamGroupPOT3 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team.getName() }}</td>
+                    <td>{{ team.getWins() }}</td>
+                    <td>{{ team.getLosses() }}</td>
+                    <td>{{ team.getDraws() }}</td>
+                    <td>{{ team.getGoalsScored() }}</td>
+                    <td>{{ team.getGoalsConceded() }}</td>
+                    <td>{{ team.getPoints() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-6">
+
+      
+    <h2>Group POT4 Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in classementTeamGroupPOT4 %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team.getName() }}</td>
+                    <td>{{ team.getWins() }}</td>
+                    <td>{{ team.getLosses() }}</td>
+                    <td>{{ team.getDraws() }}</td>
+                    <td>{{ team.getGoalsScored() }}</td>
+                    <td>{{ team.getGoalsConceded() }}</td>
+                    <td>{{ team.getPoints() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+
+      
+    <h2>Group General Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+                <th>Goals Scored</th>
+                <th>Goals Conceded</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in classementTeamGroup %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ team.getName() }}</td>
+                    <td>{{ team.getWins() }}</td>
+                    <td>{{ team.getLosses() }}</td>
+                    <td>{{ team.getDraws() }}</td>
+                    <td>{{ team.getGoalsScored() }}</td>
+                    <td>{{ team.getGoalsConceded() }}</td>
+                    <td>{{ team.getPoints() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
 </div>
 
 {% endblock %}
