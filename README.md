@@ -12,4 +12,8 @@ DATABASE_URL="mysql://User:Password@IP/databaseName"
 3. Run the project
 ```shell
 # Run project
-symfony server:start 
+symfony server:start
+
+_____________________________________________________________
+
+On a fini la phase de groupe, on a généré les classements de la phase de groupe, il manque les playoffs
