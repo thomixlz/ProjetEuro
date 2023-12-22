@@ -19,7 +19,8 @@
             <tr>
                 <th>FIFA RANKING</th>
                 <th>Team Name</th>
-                <th>Chapeau</th>
+                <th>Group</th>
+                <th>Barrier Group</th>
             </tr>
         </thead>
 
@@ -30,6 +31,7 @@
                     <td>{{ team.rankFifa }}</td>
                     <td>{{ team.name }}</td>
                     <td>{{ team.chapeau }}</td>
+                    <td>{{ team.path }}</td>
                 </tr>
                 {% endfor %}
 
@@ -69,28 +71,46 @@
             <p>Barriere Team 3</p>
         </div>
     </div>  
-    <div class="row">
-        <div class="col-12 d-flex flex-column">
-
-            <h2>Barrier Qualifier</h2>
-            {% for team in teamsBarrer %}
-            <p>{{ team.name }}</p>
-            {% endfor %}
-
-        </div>
-    </div>
 </div>
-
-
 
 
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <a href="{{ path('generate_matches') }}" class="btn btn-primary">Générer les Matchs Groupe</a>
-<a href="{{ path('reset_matches') }}" class="btn btn-danger">Réinitialiser les Matchs de Groupe</a>
+            <h2>Teams in Barrier Group</h2>
+            <ul>
+                {% for team in teamsBarrer %}
+                    <li>
+                        {{ team.getName() }}
+                        {% if team.getChapeau() == 'POT4' %}
+                            <strong>(Selected for POT4)</strong>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-12">
+            <h2>Qualified Team joining POT4</h2>
+            <ul>
+                {% for team in barrierQualifier %}
+                    <li>
+                        {{ team.getName() }}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ path('random_select') }}" class="btn btn-primary">Select 3 Teams for POT4</a>
+            <a href="{{ path('reset_selection') }}" class="btn btn-danger">Reset Selection</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+ 
     <div class="row">
         {% for chapeau, groupMatches in matchesByGroup %}
             <div class="col-3">
@@ -105,6 +125,12 @@
                 </ul>
             </div>
         {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ path('generate_group_matches') }}" class="btn btn-primary">Générer les Matchs Groupe</a>
+<a href="{{ path('reset_group_matches') }}" class="btn btn-danger">Réinitialiser les Matchs de Groupe</a>
+        </div>
     </div>
 </div>
 

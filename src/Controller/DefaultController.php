@@ -8,6 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\MatchGroup;
 use App\Repository\TeamsRepository;
 use App\Repository\MatchGroupRepository;
+use App\Repository\MatchBarrerRepository;
+
+
+
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -19,7 +23,7 @@ class DefaultController extends AbstractController {
 /**
 * @Route("/", name="app_index")
 */
-public function index(TeamsRepository $teamsRepository, MatchGroupRepository $matchGroupRepository): Response {
+public function index(TeamsRepository $teamsRepository, MatchGroupRepository $matchGroupRepository, MatchBarrerRepository $matchBarrierRepository ): Response {
 
     $teams = $teamsRepository->findAll();
     $teamsByRank = $teamsRepository->findBy([], ['rankFifa' => 'ASC']);
@@ -30,14 +34,25 @@ public function index(TeamsRepository $teamsRepository, MatchGroupRepository $ma
     $teamsPOT4 = $teamsRepository->findBy(['Chapeau' => 'POT4']);
 
     $teamsBarrer = $teamsRepository->findBy(['Chapeau' => null]);
+    $teamsBarrierQualifer =  $teamsRepository->findBy([ 'Chapeau' => 'POT4','Path' => ['PATHA', 'PATHB', 'PATHC']]);
 
-    $matches = $matchGroupRepository->findAll();
+    $matchesGroup = $matchGroupRepository->findAll();
+    $matchesBarrier = $matchBarrierRepository->findAll();
 
-    // Grouper les matchs par chapeau
+
+
+    // Group match by 'Chapeau'
     $matchesByGroup = [];
-    foreach ($matches as $match) {
+    foreach ($matchesGroup as $match) {
         $chapeau = $match->getTeam1()->getChapeau();
         $matchesByGroup[$chapeau][] = $match;
+    }
+
+    // Barrier match
+    $matchesByBarrier = [];
+    foreach ($matchesBarrier as $match) {
+        $path= $match->getTeam1()->getPath();
+        $matchesByBarrier[$path][] = $match;
     }
 
 
@@ -47,6 +62,9 @@ public function index(TeamsRepository $teamsRepository, MatchGroupRepository $ma
     return $this->render('index.html.twig', [
         'teams' => $teams,
         'teamsByRank' => $teamsByRank,
+
+       
+      
         'teamsPOT1' => $teamsPOT1,
         'teamsPOT2' => $teamsPOT2,
         'teamsPOT3' => $teamsPOT3,
@@ -54,12 +72,15 @@ public function index(TeamsRepository $teamsRepository, MatchGroupRepository $ma
         'teamsBarrer' => $teamsBarrer,
 
         'matchesByGroup' => $matchesByGroup,
+        'matchesByBarrier' => $matchesByBarrier,
+
+        'barrierQualifier' => $teamsBarrierQualifer,
 
     ]);
 }
 
 /**
-* @Route("/generate-matches", name="generate_matches")
+* @Route("/generate-group-matches", name="generate_group_matches")
 */
 public function generateMatches(TeamsRepository $teamsRepository, EntityManagerInterface $entityManager): Response {
     
@@ -96,8 +117,10 @@ public function generateMatches(TeamsRepository $teamsRepository, EntityManagerI
     }
 
 
+
+
 /**
-* @Route("/reset-matches", name="reset_matches")
+* @Route("/reset-group-matches", name="reset_group_matches")
 */
 
 public function resetMatches(EntityManagerInterface $entityManager): Response {
@@ -160,6 +183,66 @@ public function resetMatches(EntityManagerInterface $entityManager): Response {
     
         return min($scoreA, 8) . '-' . min($scoreB, 8); 
     }
+
+
+
+/**
+ * @Route("/random-select", name="random_select")
+ */
+public function randomSelect(TeamsRepository $teamsRepository, EntityManagerInterface $entityManager): Response {
+    $teamsBarrer = $teamsRepository->findBy([
+    
+        'Path' => ['PATHA', 'PATHB', 'PATHC']
+    ]);
+    if (count($teamsBarrer) >= 3) {
+        shuffle($teamsBarrer); // Randomize the array
+        for ($i = 0; $i < 3; $i++) {
+            $team = $teamsBarrer[$i];
+            $team->setChapeau('POT4');
+            $entityManager->persist($team);
+        }
+        $entityManager->flush(); // Commit changes to the database
+    }
+
+    return $this->redirectToRoute('app_index');
+}
+
+
+/**
+ * @Route("/reset-selection", name="reset_selection")
+ */
+public function resetSelection(TeamsRepository $teamsRepository, EntityManagerInterface $entityManager): Response {
+    $teamsInPOT4 = $teamsRepository->findBy([
+        'Chapeau' => 'POT4',
+        'Path' => ['PATHA', 'PATHB', 'PATHC']
+    ]);
+    
+    foreach ($teamsInPOT4 as $team) {
+        $team->setChapeau(null);
+        $entityManager->persist($team);
+    }
+    $entityManager->flush(); // Commit changes to the database
+
+    return $this->redirectToRoute('app_index');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 }
